@@ -5,7 +5,18 @@
 
 [gamix:components] > jmix:droppableContent mixin
 
-[gant:destination] > jnt:content, gamix:components, mix:title
-    - country (string, choicelist[country,flag]) mandatory indexed=no
+[gant:destination] > jnt:content, gamix:components
+    - name (string) mandatory i18n primary
+    - title (string) i18n
+    - country (string, choicelist[country,flag]) mandatory
+    - headline (string, textarea) i18n
+    - description (string, richtext) i18n
     - photos (weakreference, picker[type='image']) multiple < jmix:image
+    - facts (string, richtext) i18n
     - highlight (boolean) = 'false' mandatory autocreated
+    - landmarks (weakreference) multiple < gant:landmark
+    - outlines (weakreference) multiple < gant:outline
+
+[gant:landmark] > jnt:content, gamix:components
+
+[gant:outline] > jnt:content, gamix:components
