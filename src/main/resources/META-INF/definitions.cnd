@@ -1,0 +1,11 @@
+<jnt = 'http://www.jahia.org/jahia/nt/1.0'>
+<jmix = 'http://www.jahia.org/jahia/mix/1.0'>
+<gant = 'http://www.jahia.org/getaway/nt/1.0'>
+<gamix = 'http://www.jahia.org/getaway/mix/1.0'>
+
+[gamix:components] > jmix:droppableContent mixin
+
+[gant:destination] > jnt:content, gamix:components, mix:title
+    - country (string, choicelist[country,flag]) mandatory indexed=no
+    - photos (weakreference, picker[type='image']) multiple < jmix:image
+    - highlight (boolean) = 'false' mandatory autocreated
