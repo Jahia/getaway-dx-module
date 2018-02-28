@@ -9,4 +9,8 @@
         <property name="corsOrigin" value="${getaway.config.cors.origin:http://localhost:3000}" />
     </bean>
 
+    <bean class="org.jahia.modules.getaway.content.nodetypes.initializers.LandmarksChoicelistInitializer" init-method="fillMock">
+        <property name="key" value="landmarks" />
+    </bean>
+
 </beans>

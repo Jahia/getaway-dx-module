@@ -1,4 +1,3 @@
-import org.apache.commons.io.IOUtils
 import org.apache.commons.lang.StringUtils
 import org.jahia.api.Constants
 import org.jahia.services.content.JCRContentUtils
@@ -70,7 +69,7 @@ private addDestination(JCRNodeWrapper folderNode, Map dest, logger) {
     String name = dest.get("name")
     def nodeName = JCRContentUtils.findAvailableNodeName(folderNode, JCRContentUtils.generateNodeName(name))
     JCRNodeWrapper node = folderNode.addNode(nodeName, "gant:destination")
-    node.setProperty("name", name)
+    node.setProperty("destinationname", name)
     node.setProperty("highlight", dest.get("highlight"))
     node.setProperty("headline", generateLipsum(1))
     node.setProperty("description", generateLipsum())
