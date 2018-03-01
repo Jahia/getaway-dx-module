@@ -13,4 +13,28 @@
         <property name="key" value="landmarks" />
     </bean>
 
+    <bean id="outlinepicker" parent="editorialpicker">
+        <property name="nodeTypes">
+            <list>
+                <value>gant:outline</value>
+            </list>
+        </property>
+
+        <property name="folderTypes">
+            <list>
+                <value>jnt:contentFolder</value>
+            </list>
+        </property>
+
+        <property name="repositories">
+            <bean class="org.jahia.services.uicomponents.bean.contentmanager.Repository">
+                <property name="key" value="outlinesRepository"/>
+                <property name="paths" value="$site/contents/getaway/outlines"/>
+                <property name="titleKey"
+                          value="repository.websiteRepository.label"/>
+            </bean>
+
+        </property>
+    </bean>
+
 </beans>

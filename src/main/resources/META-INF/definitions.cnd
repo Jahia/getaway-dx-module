@@ -15,8 +15,11 @@
     - facts (string, richtext) i18n
     - highlight (boolean) = 'false' mandatory autocreated
     - landmarks (string, choicelist[landmarks,dependentProperties='destinationname']) multiple
-    - outlines (weakreference) multiple < gant:outline
+    - outlines (weakreference, picker[type='outline']) multiple < gant:outline
 
 [gant:highlightedLandmarks] > jnt:content, gamix:components
 
 [gant:outline] > jnt:content, gamix:components
+    - author (string)
+    - date (date, datepicker)
+    - text (string, richtext) i18n

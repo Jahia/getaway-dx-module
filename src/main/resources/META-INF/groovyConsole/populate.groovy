@@ -5,7 +5,11 @@ import org.jahia.services.content.JCRNodeWrapper
 import org.jahia.services.content.JCRPublicationService
 import org.jahia.services.content.JCRSessionFactory
 import org.jahia.services.content.JCRSessionWrapper
+import org.jahia.services.content.JCRValueFactoryImpl
 import org.xml.sax.SAXParseException
+
+import javax.jcr.PropertyType
+import javax.jcr.Value
 
 def logger = log
 
@@ -66,11 +70,13 @@ d_mcq.put("latitude", "44.2826")
 d_mcq.put("longitude", "1.6507")
 d_mcq.put("country", "FR")
 d_mcq.put("main-pic", "/sites/digitall/files/images/slides/green-landscape.jpg")
-
-List landmarks = new ArrayList()
-config.put("landmarks", landmarks)
-List outlines = new ArrayList()
-config.put("outlines", outlines)
+List o_mcq = new ArrayList()
+d_mcq.put("outlines", o_mcq)
+Map o = new HashMap(3)
+o_mcq.add(o)
+o.put("author", "Daniel Prévost")
+o.put("date", 194541995L)
+o.put("text", "Mais dites-moi, j’ai l’impression qu’on arrive dans une petite ruelle, j’ai l’impression que Montcuq est très étroit.")
 
 String siteKey = siteKey
 if (StringUtils.isNotBlank(siteKey)) {
@@ -89,19 +95,17 @@ private populate(String contentFolderPath, String folderPath, Map config, logger
     final JCRNodeWrapper landmarksNode = folderNode.addNode("landmarks", "jnt:contentFolder")
     final JCRNodeWrapper outlinesNode = folderNode.addNode("outlines", "jnt:contentFolder")
     editSession.save()
-    populateDestinations(destinationsNode, config.get("destinations") as List, logger)
-    populateLandmarks(landmarksNode, config.get("landmarks") as List, logger)
-    populateOutlines(outlinesNode, config.get("outlines") as List, logger)
+    populateDestinations(destinationsNode, outlinesNode, config.get("destinations") as List, logger)
     JCRPublicationService.getInstance().publishByMainId(folderNode.getIdentifier())
 }
 
-private populateDestinations(JCRNodeWrapper folderNode, List destinations, logger) {
+private populateDestinations(JCRNodeWrapper folderNode, JCRNodeWrapper outlinesNode, List destinations, logger) {
     for (Map dest : destinations)
-        addDestination(folderNode, dest, logger)
+        addDestination(folderNode, outlinesNode, dest, logger)
     folderNode.getSession().save()
 }
 
-private addDestination(JCRNodeWrapper folderNode, Map dest, logger) {
+private addDestination(JCRNodeWrapper folderNode, JCRNodeWrapper outlinesNode, Map dest, logger) {
     String name = dest.get("name")
     def nodeName = JCRContentUtils.findAvailableNodeName(folderNode, JCRContentUtils.generateNodeName(name))
     JCRNodeWrapper node = folderNode.addNode(nodeName, "gant:destination")
@@ -115,14 +119,30 @@ private addDestination(JCRNodeWrapper folderNode, Map dest, logger) {
     node.setProperty("j:longitude", dest.get("longitude"))
     node.setProperty("country", dest.get("country"))
     node.setProperty("photos", [folderNode.getSession().getNode(dest.get("main-pic")).getIdentifier()] as String[])
+    if (dest.containsKey("outlines")) {
+        ArrayList outlines = new ArrayList<Value>()
+        for (Map outline : dest.get("outlines") as List) {
+            JCRNodeWrapper outlineNode = createOutline(outlinesNode, outline, logger)
+            outlines.add(JCRValueFactoryImpl.getInstance().createValue(outlineNode.getIdentifier(), PropertyType.WEAKREFERENCE))
+        }
+        if (!outlines.isEmpty()) node.setProperty("outlines", outlines.toArray() as Value[])
+    }
 }
 
 private populateLandmarks(JCRNodeWrapper folderNode, List landmarks, logger) {
 
 }
 
-private populateOutlines(JCRNodeWrapper folderNode, List outlines, logger) {
-
+private JCRNodeWrapper createOutline(JCRNodeWrapper folderNode, Map outline, logger) {
+    String text = outline.get("text")
+    String nodeName = JCRContentUtils.findAvailableNodeName(folderNode, JCRContentUtils.generateNodeName(text))
+    JCRNodeWrapper node = folderNode.addNode(nodeName, "gant:outline")
+    node.setProperty("text", text)
+    node.setProperty("author", outline.get("author"))
+    GregorianCalendar calendar = new GregorianCalendar()
+    calendar.setTime(new Date(outline.get("date")))
+    node.setProperty("date", calendar)
+    return node
 }
 
 private reset(String folderPath, logger) {
