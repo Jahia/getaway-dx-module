@@ -42,6 +42,11 @@ public class GetAwayFilter extends AbstractServletFilter {
                 response.addHeader("Access-Control-Allow-Headers", "X-GETAWAY");
             } else {
                 // TODO test that the origin is allowed
+                final String origin = request.getHeader("origin");
+                if (!corsOrigin.equalsIgnoreCase(origin)) {
+                    logger.error(String.format("Unexpected origin: %s", origin));
+                    return;
+                }
                 final JahiaUser oldUser = JCRSessionFactory.getInstance().getCurrentUser();
                 JCRSessionFactory.getInstance().setCurrentUser(JahiaUserManagerService.getInstance().lookupRootUser().getJahiaUser());
                 servletRequest.getRequestDispatcher("/modules/graphql").forward(servletRequest, servletResponse);
