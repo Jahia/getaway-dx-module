@@ -11,6 +11,12 @@
 
     <bean class="org.jahia.modules.getaway.content.nodetypes.initializers.LandmarksChoicelistInitializer">
         <property name="key" value="landmarks" />
+        <property name="landmarksProvider" ref="googlePlacesHelper" />
+    </bean>
+
+    <bean id="googlePlacesHelper" class="org.jahia.modules.getaway.external.googlePlaces.GooglePlaces" factory-method="getInstance" init-method="start" destroy-method="stop">
+        <property name="api_key" value="${google.places.config.api.key:AIzaSyCsUSJZoTQWcptM3jzZrq6256I_ieMhYzQ}" />
+        <property name="ehCacheProvider" ref="ehCacheProvider" />
     </bean>
 
     <bean id="outlinepicker" parent="editorialpicker">
