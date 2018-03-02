@@ -6,11 +6,13 @@ import org.jahia.modules.getaway.external.LandmarksProvider;
 import org.jahia.services.cache.ehcache.EhCacheProvider;
 import org.jahia.utils.LanguageCodeConverters;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -70,8 +72,9 @@ public class GooglePlaces implements LandmarksProvider {
 
     @Override
     public Map<String, String> getLandmarks(String destination, String countryCode, Locale locale) {
-        if (destination == null || countryCode == null) throw new IllegalArgumentException("The destination and the country code must be defined both");
-        
+        if (destination == null || countryCode == null)
+            throw new IllegalArgumentException("The destination and the country code must be defined both");
+
         final String cacheKey = getCacheKey(destination, countryCode, locale);
         final Element cacheEntry = cache.get(cacheKey);
         if (cacheEntry != null) {
@@ -137,7 +140,6 @@ public class GooglePlaces implements LandmarksProvider {
      * @param country
      * @param locale
      * @return all LandMarks in a Map
-     * @throws Exception
      */
     private Map<String, String> getLandmarksFromGoogle(String city, String country, Locale locale) {
         final HashMap<String, String> extraParams = new HashMap<String, String>();
@@ -161,8 +163,10 @@ public class GooglePlaces implements LandmarksProvider {
                     landmarks.put(placeId, name);
                 }
 
-            } catch (Exception e) {
-                logger.info("An error occur getting the landmarks", e);
+            } catch (IOException e) {
+                logger.error("An error occur getting the landmarks", e);
+            } catch (JSONException e) {
+                logger.error("Impossible to read the JSON object", e);
             }
         }
         return landmarks;
@@ -189,10 +193,12 @@ public class GooglePlaces implements LandmarksProvider {
             Double lng = location.getDouble(KEY_LONGITUDE);
             latLng.put("lat", lat);
             latLng.put("lng", lng);
-            logger.debug("GetLocalisation for the city : " + city + " lat : " + lat + " lng : " + lng);
-        } catch (Exception e) {
-            logger.debug("An error occur getting the localistion : " + e.toString());
-            e.printStackTrace();
+            if (logger.isDebugEnabled())
+                logger.debug("GetLocalisation for the city : " + city + " lat : " + lat + " lng : " + lng);
+        } catch (IOException e) {
+            logger.error("An error occur getting the localistion", e);
+        } catch (JSONException e) {
+            logger.error("Impossible to read the JSON Object", e);
         }
 
         return latLng;
@@ -205,7 +211,7 @@ public class GooglePlaces implements LandmarksProvider {
      * @return
      * @throws Exception
      */
-    private JSONObject getJson(String URL) throws Exception {
+    private JSONObject getJson(String URL) throws IOException {
         URL obj = new URL(URL);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -214,8 +220,10 @@ public class GooglePlaces implements LandmarksProvider {
         con.setConnectTimeout(1000);
 
         int responseCode = con.getResponseCode();
-        logger.debug("\nSending 'GET' request to URL : " + URL);
-        logger.debug("Response Code : " + responseCode);
+        if (logger.isDebugEnabled()) {
+            logger.debug("\nSending 'GET' request to URL : " + URL);
+            logger.debug("Response Code : " + responseCode);
+        }
 
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
@@ -227,12 +235,16 @@ public class GooglePlaces implements LandmarksProvider {
         }
         in.close();
 
-        JSONObject jsonObject = new JSONObject(response.toString());
-
         //print result
-        logger.debug(response.toString());
+        if (logger.isDebugEnabled())
+            logger.debug(response.toString());
 
-        return jsonObject;
+        try {
+            return new JSONObject(response.toString());
+        } catch (JSONException e) {
+            logger.error("An error occured while building the JSON Object from the response", e);
+            return null;
+        }
     }
 
     public void setApi_key(String api_key) {
