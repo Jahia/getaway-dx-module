@@ -82,7 +82,7 @@ public class GooglePlaces implements LandmarksProvider {
         }
 
         final Map<String, String> landmarks = getLandmarksFromGoogle(destination, countryCode, locale);
-        cache.put(new Element(cacheKey, landmarks));
+        if (landmarks != null) cache.put(new Element(cacheKey, landmarks));
         return landmarks;
     }
 
@@ -165,8 +165,10 @@ public class GooglePlaces implements LandmarksProvider {
 
             } catch (IOException e) {
                 logger.error("An error occur getting the landmarks", e);
+                return null;
             } catch (JSONException e) {
                 logger.error("Impossible to read the JSON object", e);
+                return null;
             }
         }
         return landmarks;
