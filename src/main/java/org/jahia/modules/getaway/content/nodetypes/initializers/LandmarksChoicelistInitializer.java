@@ -54,7 +54,7 @@ public class LandmarksChoicelistInitializer implements ModuleChoiceListInitializ
         }
 
         if (StringUtils.isBlank(destName) || StringUtils.isBlank(country)) return myChoiceList;
-        final Map<String, String> landmarks = getLandmarks(destName, country, Locale.ENGLISH); // TODO crappy, the destName is i18n, we should use a normalized and not localized key
+        final Map<String, String> landmarks = getLandmarks(destName, country, locale); // TODO crappy, the destName is i18n, we should use a normalized and not localized key
         if (landmarks == null) return myChoiceList;
 
         HashMap<String, Object> myPropertiesMap = null;

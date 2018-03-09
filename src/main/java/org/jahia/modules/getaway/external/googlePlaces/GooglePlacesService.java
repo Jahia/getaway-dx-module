@@ -97,6 +97,7 @@ public class GooglePlacesService implements LandmarksProvider {
     private Map<String, String> getLandmarksFromGoogle(String city, String country, Locale locale) {
         final String query = String.format("things to do in %s, %s", city, country);
         TextSearchRequest request = PlacesApi.textSearchQuery(geoApiContext, query);
+        request.language(locale.getLanguage());
         String nextPageToken;
         try {
             final Map<String, String> landmarks = new HashMap<>();
