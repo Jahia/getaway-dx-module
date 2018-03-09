@@ -1,7 +1,6 @@
 package org.jahia.modules.getaway.external.googlePlaces;
 
 import com.google.maps.GeoApiContext;
-import com.google.maps.NearbySearchRequest;
 import com.google.maps.PlacesApi;
 import com.google.maps.TextSearchRequest;
 import com.google.maps.errors.ApiException;
@@ -34,7 +33,6 @@ public class GooglePlacesService implements LandmarksProvider {
     private long cacheTti = 24L * 3600L; // 1 day;
 
     private String api_key;
-    private int radius;
     private GeoApiContext geoApiContext;
 
     private GooglePlacesService() {
@@ -78,7 +76,8 @@ public class GooglePlacesService implements LandmarksProvider {
             return (Map<String, String>) cacheEntry.getObjectValue();
         }
 
-        final Map<String, String> landmarks = getLandmarksFromGoogle(destination, countryCode, locale);
+        final String country = new Locale(Locale.ENGLISH.getLanguage(), countryCode).getDisplayCountry(Locale.ENGLISH);
+        final Map<String, String> landmarks = getLandmarksFromGoogle(destination, country, locale);
         if (landmarks != null) cache.put(new Element(cacheKey, landmarks));
         return landmarks;
     }
@@ -96,15 +95,21 @@ public class GooglePlacesService implements LandmarksProvider {
      * @return a Map where the keys are the placeID of the landmarks, and the value the localized name. Returns null if an error occured.
      */
     private Map<String, String> getLandmarksFromGoogle(String city, String country, Locale locale) {
-        final LatLng geoCoordinates = getGeoCoordinates(city, country, locale);
-        if (geoCoordinates == null) return null;
-        final NearbySearchRequest query = PlacesApi.nearbySearchQuery(geoApiContext, geoCoordinates);
-        query.radius(radius);
+        final String query = String.format("things to do in %s, %s", city, country);
+        TextSearchRequest request = PlacesApi.textSearchQuery(geoApiContext, query);
+        String nextPageToken;
         try {
-            final PlacesSearchResponse response = query.await();
             final Map<String, String> landmarks = new HashMap<>();
-            for (PlacesSearchResult result : response.results) {
-                landmarks.put(result.placeId, result.name);
+            while (true) {
+                final PlacesSearchResponse response = request.await();
+                nextPageToken = response.nextPageToken;
+                for (PlacesSearchResult result : response.results) {
+                    landmarks.put(result.placeId, result.name);
+                }
+                if (nextPageToken == null) break;
+                request = PlacesApi.textSearchNextPage(geoApiContext, nextPageToken);
+                logger.debug("Let's go with one more page");
+                Thread.sleep(2000L); // According to PlacesSearchResponse.nextPageToken documentation, "There is a short delay between when this response is issued, and when nextPageToken will become valid to execute."
             }
             return landmarks;
         } catch (ApiException | InterruptedException | IOException e) {
@@ -122,11 +127,11 @@ public class GooglePlacesService implements LandmarksProvider {
      * @return
      */
     private LatLng getGeoCoordinates(String city, String country, Locale locale) {
-        final String cityInCountry = city + " in " + country;
-        final TextSearchRequest query = PlacesApi.textSearchQuery(geoApiContext, cityInCountry);
-        query.language(locale.getLanguage());
+        final String cityInCountry = String.format("%s, %s", city, country);
+        final TextSearchRequest request = PlacesApi.textSearchQuery(geoApiContext, cityInCountry);
+        request.language(locale.getLanguage());
         try {
-            final PlacesSearchResponse response = query.await();
+            final PlacesSearchResponse response = request.await();
             final PlacesSearchResult result = response.results[0];
             return result.geometry.location;
         } catch (ApiException | InterruptedException | IOException e) {
@@ -137,10 +142,6 @@ public class GooglePlacesService implements LandmarksProvider {
 
     public void setApi_key(String api_key) {
         this.api_key = api_key;
-    }
-
-    public void setRadius(int radius) {
-        this.radius = radius;
     }
 
     public void setEhCacheProvider(EhCacheProvider ehCacheProvider) {

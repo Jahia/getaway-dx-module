@@ -16,7 +16,6 @@
 
     <bean id="googlePlacesService" class="org.jahia.modules.getaway.external.googlePlaces.GooglePlacesService" factory-method="getInstance" init-method="start" destroy-method="stop">
         <property name="api_key" value="${google.places.config.api.key:AIzaSyCsUSJZoTQWcptM3jzZrq6256I_ieMhYzQ}" />
-        <property name="radius" value="${google.places.config.radius:50000}" />
         <property name="ehCacheProvider" ref="ehCacheProvider" />
     </bean>
 

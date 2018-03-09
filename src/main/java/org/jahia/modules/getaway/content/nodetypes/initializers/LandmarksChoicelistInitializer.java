@@ -105,7 +105,5 @@ public class LandmarksChoicelistInitializer implements ModuleChoiceListInitializ
         }
         return null;
     }
-
-
 }
 
