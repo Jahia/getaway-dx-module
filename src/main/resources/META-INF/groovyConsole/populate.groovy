@@ -25,6 +25,12 @@ d_gva.put("latitude", " 46.1456")
 d_gva.put("longitude", "6.5891")
 d_gva.put("country", "CH")
 d_gva.put("main-pic", "/sites/digitall/files/images/backgrounds/landscape-mountains-nature-clouds.jpg")
+d_gva.put("hl_landmarks", Arrays.asList("ChIJxYdJYjpljEcRSJJQjwS5fwM",
+        "ChIJHVx0N9VkjEcRgFvJTopTApU",
+        "ChIJDd__TB1ljEcRWsj6TSicf-A",
+        "ChIJgcoLz_pkjEcRlE0r8mguJiA",
+        "ChIJo8di1TFljEcRFU9ttUDPPL0"))
+
 // NYC
 Map d_nyc = new HashMap()
 destinations.add(d_nyc)
@@ -34,6 +40,13 @@ d_nyc.put("latitude", "40.6536")
 d_nyc.put("longitude", "-73.5672")
 d_nyc.put("country", "US")
 d_nyc.put("main-pic", "/sites/digitall/files/images/slides/office-buildings.jpg")
+d_nyc.put("hl_landmarks", Arrays.asList("ChIJKxDbe_lYwokRVf__s8CPn-o",
+        "ChIJ4zGFAZpYwokRGUGph3Mf37k",
+        "ChIJRcvoOxpawokR7R4dQMXMMPQ",
+        "ChIJb8Jg9pZYwokR-qHGtvSkLzs",
+        "ChIJaXQRs6lZwokRY6EFpJnhNNE",
+        "ChIJPTacEpBQwokRKwIlDXelxkA"))
+
 // Reykjavik
 Map d_rkv = new HashMap()
 destinations.add(d_rkv)
@@ -43,6 +56,11 @@ d_rkv.put("latitude", "64.1034")
 d_rkv.put("longitude", "-21.4893")
 d_rkv.put("country", "IS")
 d_rkv.put("main-pic", "/sites/digitall/files/images/misc/IMG_4773.JPG")
+d_rkv.put("hl_landmarks", Arrays.asList("ChIJndUbV8l01kgRKEyfO5sVMe0",
+        "ChIJOyxLnhVCzUgRoOQvu5-Krk0",
+        "ChIJtS1DoMx01kgR76qdSMQor_c",
+        "ChIJW2giY9UK1kgRQSFXuArgnpA"))
+
 // Paris
 Map d_paris = new HashMap()
 destinations.add(d_paris)
@@ -52,6 +70,15 @@ d_paris.put("latitude", "48.8032")
 d_paris.put("longitude", "2.7905")
 d_paris.put("country", "FR")
 d_paris.put("main-pic", "/sites/digitall/files/images/slides/city-sunny-couple-love.jpg")
+d_paris.put("hl_landmarks", Arrays.asList("ChIJ442GNENu5kcRGYUrvgqHw88"
+        , "ChIJD3uTd9hx5kcR1IQvGfr8dbk"
+        , "ChIJiQxv_05u5kcRESFIh6-QTvQ"
+        , "ChIJUzCPuddv5kcRasGAnEUUWkU"
+        , "ChIJATr1n-Fx5kcRjQb6q6cdQDY"
+        , "ChIJK2Gs9DZu5kcRCHzHNohIAUQ"
+        , "ChIJLU7jZClu5kcR4PcOOO6p3I0"
+        , "ChIJjx37cOxv5kcRPWQuEW5ntdk"))
+
 // Rome
 Map d_rome = new HashMap()
 destinations.add(d_rome)
@@ -61,6 +88,12 @@ d_rome.put("latitude", "41.8286")
 d_rome.put("longitude", "12.9254")
 d_rome.put("country", "IT")
 d_rome.put("main-pic", "/sites/digitall/files/images/slides/city-sunny-couple-love.jpg")
+d_rome.put("hl_landmarks", Arrays.asList("ChIJIRbrOGZgLxMROSyE2uUHIHA"
+        , "ChIJ782pg7NhLxMR5n3swAdAkfo"
+        , "ChIJH-4j1LJhLxMR6IviSs42yJ0"
+        , "ChIJrRMgU7ZhLxMRxAOFkC7I8Sg"
+        , "ChIJ1UCDJ1NgLxMRtrsCzOHxdvY"))
+
 // Montcuq
 Map d_mcq = new HashMap()
 destinations.add(d_mcq)
@@ -119,6 +152,12 @@ private addDestination(JCRNodeWrapper folderNode, JCRNodeWrapper outlinesNode, M
     node.setProperty("j:longitude", dest.get("longitude"))
     node.setProperty("country", dest.get("country"))
     node.setProperty("photos", [folderNode.getSession().getNode(dest.get("main-pic")).getIdentifier()] as String[])
+    if (dest.containsKey("hl_landmarks")) {
+        ArrayList landmarks = new ArrayList<Value>()
+        for (String placeID : dest.get("hl_landmarks") as List)
+            landmarks.add(JCRValueFactoryImpl.getInstance().createValue(placeID, PropertyType.STRING))
+        if (!landmarks.isEmpty()) node.setProperty("landmarks", landmarks.toArray() as Value[])
+    }
     if (dest.containsKey("outlines")) {
         ArrayList outlines = new ArrayList<Value>()
         for (Map outline : dest.get("outlines") as List) {
