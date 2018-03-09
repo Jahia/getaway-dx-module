@@ -1,5 +1,6 @@
 package org.jahia.modules.getaway.content.nodetypes.initializers;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jahia.modules.getaway.external.LandmarksProvider;
 import org.jahia.services.content.JCRNodeWrapper;
@@ -96,7 +97,8 @@ public class LandmarksChoicelistInitializer implements ModuleChoiceListInitializ
      */
     private String getString(String property, Map<String, Object> context) throws RepositoryException {
         if (context.containsKey(property)) {
-            return ((List<String>) context.get(property)).get(0);
+            final List<String> strings = (List<String>) context.get(property);
+            return CollectionUtils.isEmpty(strings) ? null : strings.get(0);
         } else {
             final JCRNodeWrapper node = (JCRNodeWrapper) context.get("contextNode");
             if (node != null && node.hasProperty(property)) {
