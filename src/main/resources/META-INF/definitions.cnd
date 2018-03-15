@@ -5,7 +5,13 @@
 
 [gamix:components] > jmix:droppableContent mixin
 
-[gant:destination] > jnt:content, gamix:components
+[gamix:destinationInfos] mixin
+    - area (double) < '[0.1,)'
+    - elevation (long)
+    - populationCount (long) < '[1,]'
+    - populationDate (string, choicelist[populationDates]) indexed=no
+
+[gant:destination] > jnt:content, gamix:components, gamix:destinationInfos
     - destinationname (string) mandatory i18n primary
     - title (string) i18n
     - country (string, choicelist[country,flag]) mandatory

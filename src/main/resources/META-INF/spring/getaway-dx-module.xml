@@ -14,6 +14,10 @@
         <property name="landmarksProvider" ref="googlePlacesService" />
     </bean>
 
+    <bean class="org.jahia.modules.getaway.content.nodetypes.initializers.PopulationDatesInitializer">
+        <property name="key" value="populationDates" />
+    </bean>
+
     <bean id="googlePlacesService" class="org.jahia.modules.getaway.external.googlePlaces.GooglePlacesService" factory-method="getInstance" init-method="start" destroy-method="stop">
         <property name="api_key" value="${google.places.config.api.key:AIzaSyCsUSJZoTQWcptM3jzZrq6256I_ieMhYzQ}" />
         <property name="ehCacheProvider" ref="ehCacheProvider" />

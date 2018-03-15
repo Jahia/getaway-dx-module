@@ -30,6 +30,10 @@ d_gva.put("hl_landmarks", Arrays.asList("ChIJxYdJYjpljEcRSJJQjwS5fwM",
         "ChIJDd__TB1ljEcRWsj6TSicf-A",
         "ChIJgcoLz_pkjEcRlE0r8mguJiA",
         "ChIJo8di1TFljEcRFU9ttUDPPL0"))
+d_gva.put("area", 15.92)
+d_gva.put("elevation", 374)
+d_gva.put("population", 201813)
+d_gva.put("populationDate", 2017)
 
 // NYC
 Map d_nyc = new HashMap()
@@ -46,6 +50,9 @@ d_nyc.put("hl_landmarks", Arrays.asList("ChIJKxDbe_lYwokRVf__s8CPn-o",
         "ChIJb8Jg9pZYwokR-qHGtvSkLzs",
         "ChIJaXQRs6lZwokRY6EFpJnhNNE",
         "ChIJPTacEpBQwokRKwIlDXelxkA"))
+d_nyc.put("area", 1214.4)
+d_nyc.put("population", 8537673)
+d_nyc.put("populationDate", 2016)
 
 // Reykjavik
 Map d_rkv = new HashMap()
@@ -60,6 +67,11 @@ d_rkv.put("hl_landmarks", Arrays.asList("ChIJndUbV8l01kgRKEyfO5sVMe0",
         "ChIJOyxLnhVCzUgRoOQvu5-Krk0",
         "ChIJtS1DoMx01kgR76qdSMQor_c",
         "ChIJW2giY9UK1kgRQSFXuArgnpA"))
+d_rkv.put("area", 274)
+d_rkv.put("elevation", 0)
+d_rkv.put("population", 121230)
+d_rkv.put("populationDate", 2014)
+
 
 // Paris
 Map d_paris = new HashMap()
@@ -78,6 +90,10 @@ d_paris.put("hl_landmarks", Arrays.asList("ChIJ442GNENu5kcRGYUrvgqHw88"
         , "ChIJK2Gs9DZu5kcRCHzHNohIAUQ"
         , "ChIJLU7jZClu5kcR4PcOOO6p3I0"
         , "ChIJjx37cOxv5kcRPWQuEW5ntdk"))
+d_paris.put("area", 105.4)
+d_paris.put("elevation", 28)
+d_paris.put("population", 2206488)
+d_paris.put("populationDate", 2015)
 
 // Rome
 Map d_rome = new HashMap()
@@ -93,6 +109,10 @@ d_rome.put("hl_landmarks", Arrays.asList("ChIJIRbrOGZgLxMROSyE2uUHIHA"
         , "ChIJH-4j1LJhLxMR6IviSs42yJ0"
         , "ChIJrRMgU7ZhLxMRxAOFkC7I8Sg"
         , "ChIJ1UCDJ1NgLxMRtrsCzOHxdvY"))
+d_rome.put("area", 1286.31)
+d_rome.put("elevation", 0)
+d_rome.put("population", 2877215)
+d_rome.put("populationDate", 2016)
 
 // Montcuq
 Map d_mcq = new HashMap()
@@ -103,6 +123,10 @@ d_mcq.put("latitude", "44.2826")
 d_mcq.put("longitude", "1.6507")
 d_mcq.put("country", "FR")
 d_mcq.put("main-pic", "/sites/digitall/files/images/slides/green-landscape.jpg")
+d_mcq.put("area", 32.22)
+d_mcq.put("elevation", 135)
+d_mcq.put("population", 1241)
+d_mcq.put("populationDate", 2013)
 List o_mcq = new ArrayList()
 d_mcq.put("outlines", o_mcq)
 Map o = new HashMap(3)
@@ -143,6 +167,8 @@ private addDestination(JCRNodeWrapper folderNode, JCRNodeWrapper outlinesNode, M
     def nodeName = JCRContentUtils.findAvailableNodeName(folderNode, JCRContentUtils.generateNodeName(name))
     JCRNodeWrapper node = folderNode.addNode(nodeName, "gant:destination")
     node.setProperty("destinationname", name)
+    if (dest.containsKey("title")) node.setProperty("title", dest.get("title") as String)
+    else node.setProperty("title", generateLipsum("words", 10, false))
     node.setProperty("highlight", dest.get("highlight"))
     node.setProperty("headline", generateLipsum(1))
     node.setProperty("description", generateLipsum())
@@ -166,6 +192,10 @@ private addDestination(JCRNodeWrapper folderNode, JCRNodeWrapper outlinesNode, M
         }
         if (!outlines.isEmpty()) node.setProperty("outlines", outlines.toArray() as Value[])
     }
+    if (dest.containsKey("area")) node.setProperty("area", dest.get("area") as double)
+    if (dest.containsKey("elevation")) node.setProperty("elevation", dest.get("elevation") as int)
+    if (dest.containsKey("population")) node.setProperty("populationCount", dest.get("population") as int)
+    if (dest.containsKey("populationDate")) node.setProperty("populationDate", dest.get("populationDate") as int)
 }
 
 private populateLandmarks(JCRNodeWrapper folderNode, List landmarks, logger) {
