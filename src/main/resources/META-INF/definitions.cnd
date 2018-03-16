@@ -13,19 +13,11 @@
 
 [gant:destination] > jnt:content, gamix:components, gamix:destinationInfos
     - destinationname (string) mandatory i18n primary
-    - title (string) i18n
     - country (string, choicelist[country,flag]) mandatory
-    - headline (string, textarea) i18n
-    - description (string, richtext) i18n
-    - photos (weakreference, picker[type='image']) multiple < jmix:image
-    - facts (string, richtext) i18n
     - highlight (boolean) = 'false' mandatory autocreated
+    - photos (weakreference, picker[type='image']) multiple < jmix:image
+    - headline (string) i18n
+    - outline (string, richtext) i18n
     - landmarks (string, choicelist[landmarks,dependentProperties='destinationname,country']) multiple
-    - outlines (weakreference, picker[type='outline']) multiple < gant:outline
 
 [gant:highlightedLandmarks] > jnt:content, gamix:components
-
-[gant:outline] > jnt:content, gamix:components
-    - author (string)
-    - date (date, datepicker)
-    - text (string, richtext) i18n

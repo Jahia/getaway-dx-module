@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<getaway:destinations xmlns:getaway="http://www.jahia.org/xml/ns/getaway">
+    <getaway:destination name="Geneva" country="CH" highlight="true">
+        <getaway:main-pic>/sites/digitall/files/images/backgrounds/landscape-mountains-nature-clouds.jpg
+        </getaway:main-pic>
+        <getaway:landmarks>
+            <getaway:landmarkKey>ChIJxYdJYjpljEcRSJJQjwS5fwM</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJHVx0N9VkjEcRgFvJTopTApU</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJDd__TB1ljEcRWsj6TSicf-A</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJgcoLz_pkjEcRlE0r8mguJiA</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJo8di1TFljEcRFU9ttUDPPL0</getaway:landmarkKey>
+        </getaway:landmarks>
+        <getaway:infos area="15.92" elevation="374">
+            <getaway:geoPos latitude="46.1456" longitude="6.5891" />
+            <getaway:population count="201813" year="2017" />
+        </getaway:infos>
+    </getaway:destination>
+    <getaway:destination name="New York City" country="US" highlight="true">
+        <getaway:infos area="1214.4">
+            <getaway:population count="8537673" year="2016" />
+            <getaway:geoPos latitude="40.6536" longitude="-73.5672" />
+        </getaway:infos>
+        <getaway:main-pic>/sites/digitall/files/images/slides/office-buildings.jpg</getaway:main-pic>
+        <getaway:landmarks>
+            <getaway:landmarkKey>ChIJKxDbe_lYwokRVf__s8CPn-o</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJ4zGFAZpYwokRGUGph3Mf37k</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJRcvoOxpawokR7R4dQMXMMPQ</getaway:landmarkKey>
+            <getaway:landmarkKey>qHGtvSkLzs</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJaXQRs6lZwokRY6EFpJnhNNE</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJPTacEpBQwokRKwIlDXelxkA</getaway:landmarkKey>
+        </getaway:landmarks>
+    </getaway:destination>
+    <getaway:destination name="Reykjavik" country="IS" highlight="false">
+        <getaway:infos area="274" elevation="0">
+            <getaway:geoPos latitude="64.1034" longitude="-21.4893" />
+            <getaway:population count="121230" year="2014" />
+        </getaway:infos>
+        <getaway:main-pic>/sites/digitall/files/images/misc/IMG_4773.JPG</getaway:main-pic>
+        <getaway:landmarks>
+            <getaway:landmarkKey>ChIJndUbV8l01kgRKEyfO5sVMe0</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJOyxLnhVCzUgRoOQvu5-Krk0</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJtS1DoMx01kgR76qdSMQor_c</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJW2giY9UK1kgRQSFXuArgnpA</getaway:landmarkKey>
+        </getaway:landmarks>
+    </getaway:destination>
+    <getaway:destination name="Paris" country="FR" highlight="true">
+        <getaway:infos elevation="28" area="105.4">
+            <getaway:population count="2206488" year="2015" />
+            <getaway:geoPos latitude="48.8032" longitude="2.7905" />
+        </getaway:infos>
+        <getaway:main-pic>/sites/digitall/files/images/slides/city-sunny-couple-love.jpg</getaway:main-pic>
+        <getaway:landmarks>
+            <getaway:landmarkKey>ChIJ442GNENu5kcRGYUrvgqHw88</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJD3uTd9hx5kcR1IQvGfr8dbk</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJiQxv_05u5kcRESFIh6-QTvQ</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJUzCPuddv5kcRasGAnEUUWkU</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJATr1n-Fx5kcRjQb6q6cdQDY</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJK2Gs9DZu5kcRCHzHNohIAUQ</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJLU7jZClu5kcR4PcOOO6p3I0</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJjx37cOxv5kcRPWQuEW5ntdk</getaway:landmarkKey>
+        </getaway:landmarks>
+        <getaway:headline>Timeless familiarity with instantly recognisable architectural icons.</getaway:headline>
+        <getaway:outline>&lt;p&gt;Paris has a timeless familiarity for first-time and frequent visitors, with instantly recognisable architectural icons, along with exquisite cuisine, chic boutiques and priceless artistic treasures. You can check below all the details of our trip!&lt;/p&gt;
+            &lt;b&gt;Iconic Architecture&lt;/b&gt;
+            &lt;p&gt;The wrought-iron spire of the Eiffel Tower piercing the clouds, the broad Arc de Triomphe guarding Paris&amp;rsquo; most glamorous avenue, the Champs-&amp;Eacute;lys&amp;eacute;es, the gargoyled Notre Dame cathedral, lamplit bridges spanning the Seine and art nouveau cafes spilling on to wicker-chair-lined terraces are indelibly etched in the minds of anyone who&amp;rsquo;s visited the city &amp;ndash; and the imaginations of anyone who hasn&amp;rsquo;t (yet). But despite initial appearances, Paris&amp;rsquo; cityscape isn&amp;rsquo;t static: there are some stunning modern and contemporary icons too, from the inside-out, industrial-style Centre Pompidou to the mur v&amp;eacute;g&amp;eacute;tal (vertical garden) gracing the striking Mus&amp;eacute;e du Quai Branly.&lt;/p&gt;
+            &lt;b&gt;Glorious Food&lt;/b&gt;
+            &lt;p&gt;Paris&amp;rsquo; dining is iconic: France&amp;rsquo;s reputation for its cuisine (the French word for &amp;lsquo;kitchen&amp;rsquo;) precedes it, and whether you seek a cosy neighbourhood bistro or a triple-Michelin-starred temple to gastronomy, you&amp;apos;ll find every establishment prides itself on exquisite preparation and presentation of quality produce, invariably served with wine. Enticing patisseries, boulangeries (bakeries), fromageries (cheese shops) and crowded, colourful street markets are perfect for packing a picnic to take to the city&amp;rsquo;s parks and gardens. A host of culinary courses &amp;ndash; from home kitchens through to the world&amp;rsquo;s most prestigious cookery schools &amp;ndash; offers instruction for all schedules, abilities and budgets.&lt;/p&gt;
+            &lt;b&gt;Artistic Treasures&lt;/b&gt;
+            &lt;p&gt;With an illustrious artistic pedigree &amp;ndash; Renoir, Rodin, Picasso, Monet, Manet, Dal&amp;iacute; and Van Gogh are but a few of the masters who lived and worked here over the years &amp;ndash; Paris is one of the great art repositories of the world, harbouring treasures from antiquity onward. In addition to big hitters like the incomparable Louvre, the Mus&amp;eacute;e d&amp;rsquo;Orsay&amp;rsquo;s exceptional impressionist collection, and the Centre Pompidou&amp;rsquo;s cache of modern and contemporary art, there are scores of smaller museums housing collections in every imaginable genre, and a diverse range of venues mounting major exhibitions through to off-beat installations.&lt;/p&gt;
+        </getaway:outline>
+    </getaway:destination>
+    <getaway:destination name="Rome" country="IT">
+        <getaway:infos area="1286.31" elevation="0">
+            <getaway:geoPos latitude="41.8286" longitude="12.9254" />
+            <getaway:population count="2877215" year="2016" />
+        </getaway:infos>
+        <getaway:main-pic>/sites/digitall/files/images/slides/city-sunny-couple-love.jpg</getaway:main-pic>
+        <getaway:landmarks>
+            <getaway:landmarkKey>ChIJIRbrOGZgLxMROSyE2uUHIHA</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJ782pg7NhLxMR5n3swAdAkfo</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJH-4j1LJhLxMR6IviSs42yJ0</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJrRMgU7ZhLxMRxAOFkC7I8Sg</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJ1UCDJ1NgLxMRtrsCzOHxdvY</getaway:landmarkKey>
+        </getaway:landmarks>
+    </getaway:destination>
+    <getaway:destination name="Montcuq" country="FR" highlight="true">
+        <getaway:main-pic>/sites/digitall/files/images/slides/green-landscape.jpg</getaway:main-pic>
+        <getaway:infos elevation="135" area="32.22">
+            <getaway:population count="1241" year="2013" />
+            <getaway:geoPos latitude="44.2826" longitude="1.6507" />
+        </getaway:infos>
+    </getaway:destination>
+</getaway:destinations>

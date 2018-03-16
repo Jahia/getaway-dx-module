@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+            targetNamespace="http://www.jahia.org/xml/ns/getaway" xmlns="http://www.jahia.org/xml/ns/getaway"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="destinations">
+        <xsd:complexType>
+            <xsd:sequence maxOccurs="unbounded">
+                <xsd:element ref="destination" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="destination">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element type="xsd:string" name="main-pic" minOccurs="0" />
+                <xsd:element type="xsd:string" name="headline" minOccurs="0" />
+                <xsd:element type="xsd:string" name="outline" minOccurs="0" />
+                <xsd:element ref="landmarks" minOccurs="0" />
+                <xsd:element ref="infos" minOccurs="0" />
+            </xsd:all>
+            <xsd:attribute type="xsd:string" name="name" use="required" />
+            <xsd:attribute type="xsd:string" name="country" use="required" />
+            <xsd:attribute type="xsd:boolean" name="highlight" />
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="landmarks">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="landmarkKey" maxOccurs="unbounded" type="xsd:string" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="infos">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="geoPos" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:attribute name="latitude" type="xsd:float" use="required" />
+                        <xsd:attribute name="longitude" type="xsd:float" use="required" />
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="population" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:attribute name="count" use="required" type="xsd:positiveInteger" />
+                        <xsd:attribute name="year" type="xsd:positiveInteger" />
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:all>
+            <xsd:attribute type="xsd:float" name="area" />
+            <xsd:attribute type="xsd:int" name="elevation" />
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

@@ -1,11 +1,19 @@
 import org.apache.commons.lang.StringUtils
 import org.jahia.api.Constants
+import org.jahia.data.templates.JahiaTemplatesPackage
+import org.jahia.osgi.BundleResource
+import org.jahia.registries.ServicesRegistry
 import org.jahia.services.content.JCRContentUtils
 import org.jahia.services.content.JCRNodeWrapper
 import org.jahia.services.content.JCRPublicationService
 import org.jahia.services.content.JCRSessionFactory
 import org.jahia.services.content.JCRSessionWrapper
 import org.jahia.services.content.JCRValueFactoryImpl
+import org.jdom.Document
+import org.jdom.Element
+import org.jdom.Namespace
+import org.jdom.input.SAXBuilder
+import org.osgi.framework.Bundle
 import org.xml.sax.SAXParseException
 
 import javax.jcr.PropertyType
@@ -13,205 +21,100 @@ import javax.jcr.Value
 
 def logger = log
 
-Map config = new HashMap()
-List destinations = new ArrayList()
-config.put("destinations", destinations)
-// Geneva
-Map d_gva = new HashMap()
-destinations.add(d_gva)
-d_gva.put("name", "Geneva")
-d_gva.put("highlight", true)
-d_gva.put("latitude", " 46.1456")
-d_gva.put("longitude", "6.5891")
-d_gva.put("country", "CH")
-d_gva.put("main-pic", "/sites/digitall/files/images/backgrounds/landscape-mountains-nature-clouds.jpg")
-d_gva.put("hl_landmarks", Arrays.asList("ChIJxYdJYjpljEcRSJJQjwS5fwM",
-        "ChIJHVx0N9VkjEcRgFvJTopTApU",
-        "ChIJDd__TB1ljEcRWsj6TSicf-A",
-        "ChIJgcoLz_pkjEcRlE0r8mguJiA",
-        "ChIJo8di1TFljEcRFU9ttUDPPL0"))
-d_gva.put("area", 15.92)
-d_gva.put("elevation", 374)
-d_gva.put("population", 201813)
-d_gva.put("populationDate", 2017)
-
-// NYC
-Map d_nyc = new HashMap()
-destinations.add(d_nyc)
-d_nyc.put("name", "New York City")
-d_nyc.put("highlight", true)
-d_nyc.put("latitude", "40.6536")
-d_nyc.put("longitude", "-73.5672")
-d_nyc.put("country", "US")
-d_nyc.put("main-pic", "/sites/digitall/files/images/slides/office-buildings.jpg")
-d_nyc.put("hl_landmarks", Arrays.asList("ChIJKxDbe_lYwokRVf__s8CPn-o",
-        "ChIJ4zGFAZpYwokRGUGph3Mf37k",
-        "ChIJRcvoOxpawokR7R4dQMXMMPQ",
-        "ChIJb8Jg9pZYwokR-qHGtvSkLzs",
-        "ChIJaXQRs6lZwokRY6EFpJnhNNE",
-        "ChIJPTacEpBQwokRKwIlDXelxkA"))
-d_nyc.put("area", 1214.4)
-d_nyc.put("population", 8537673)
-d_nyc.put("populationDate", 2016)
-
-// Reykjavik
-Map d_rkv = new HashMap()
-destinations.add(d_rkv)
-d_rkv.put("name", "Reykjavik")
-d_rkv.put("highlight", false)
-d_rkv.put("latitude", "64.1034")
-d_rkv.put("longitude", "-21.4893")
-d_rkv.put("country", "IS")
-d_rkv.put("main-pic", "/sites/digitall/files/images/misc/IMG_4773.JPG")
-d_rkv.put("hl_landmarks", Arrays.asList("ChIJndUbV8l01kgRKEyfO5sVMe0",
-        "ChIJOyxLnhVCzUgRoOQvu5-Krk0",
-        "ChIJtS1DoMx01kgR76qdSMQor_c",
-        "ChIJW2giY9UK1kgRQSFXuArgnpA"))
-d_rkv.put("area", 274)
-d_rkv.put("elevation", 0)
-d_rkv.put("population", 121230)
-d_rkv.put("populationDate", 2014)
-
-
-// Paris
-Map d_paris = new HashMap()
-destinations.add(d_paris)
-d_paris.put("name", "Paris")
-d_paris.put("highlight", true)
-d_paris.put("latitude", "48.8032")
-d_paris.put("longitude", "2.7905")
-d_paris.put("country", "FR")
-d_paris.put("main-pic", "/sites/digitall/files/images/slides/city-sunny-couple-love.jpg")
-d_paris.put("hl_landmarks", Arrays.asList("ChIJ442GNENu5kcRGYUrvgqHw88"
-        , "ChIJD3uTd9hx5kcR1IQvGfr8dbk"
-        , "ChIJiQxv_05u5kcRESFIh6-QTvQ"
-        , "ChIJUzCPuddv5kcRasGAnEUUWkU"
-        , "ChIJATr1n-Fx5kcRjQb6q6cdQDY"
-        , "ChIJK2Gs9DZu5kcRCHzHNohIAUQ"
-        , "ChIJLU7jZClu5kcR4PcOOO6p3I0"
-        , "ChIJjx37cOxv5kcRPWQuEW5ntdk"))
-d_paris.put("area", 105.4)
-d_paris.put("elevation", 28)
-d_paris.put("population", 2206488)
-d_paris.put("populationDate", 2015)
-
-// Rome
-Map d_rome = new HashMap()
-destinations.add(d_rome)
-d_rome.put("name", "Rome")
-d_rome.put("highlight", false)
-d_rome.put("latitude", "41.8286")
-d_rome.put("longitude", "12.9254")
-d_rome.put("country", "IT")
-d_rome.put("main-pic", "/sites/digitall/files/images/slides/city-sunny-couple-love.jpg")
-d_rome.put("hl_landmarks", Arrays.asList("ChIJIRbrOGZgLxMROSyE2uUHIHA"
-        , "ChIJ782pg7NhLxMR5n3swAdAkfo"
-        , "ChIJH-4j1LJhLxMR6IviSs42yJ0"
-        , "ChIJrRMgU7ZhLxMRxAOFkC7I8Sg"
-        , "ChIJ1UCDJ1NgLxMRtrsCzOHxdvY"))
-d_rome.put("area", 1286.31)
-d_rome.put("elevation", 0)
-d_rome.put("population", 2877215)
-d_rome.put("populationDate", 2016)
-
-// Montcuq
-Map d_mcq = new HashMap()
-destinations.add(d_mcq)
-d_mcq.put("name", "Montcuq")
-d_mcq.put("highlight", true)
-d_mcq.put("latitude", "44.2826")
-d_mcq.put("longitude", "1.6507")
-d_mcq.put("country", "FR")
-d_mcq.put("main-pic", "/sites/digitall/files/images/slides/green-landscape.jpg")
-d_mcq.put("area", 32.22)
-d_mcq.put("elevation", 135)
-d_mcq.put("population", 1241)
-d_mcq.put("populationDate", 2013)
-List o_mcq = new ArrayList()
-d_mcq.put("outlines", o_mcq)
-Map o = new HashMap(3)
-o_mcq.add(o)
-o.put("author", "Daniel Prévost")
-o.put("date", 194541995L)
-o.put("text", "Mais dites-moi, j’ai l’impression qu’on arrive dans une petite ruelle, j’ai l’impression que Montcuq est très étroit.")
-
 String siteKey = siteKey
 if (StringUtils.isNotBlank(siteKey)) {
     final String contentFolderPath = String.format("/sites/%s/contents", siteKey)
     final String folderPath = String.format("/sites/%s/contents/getaway", siteKey)
     reset(folderPath, logger)
-    populate(contentFolderPath, folderPath, config, logger)
+    populate(contentFolderPath, folderPath, logger)
 } else {
     logger.error("Sitekey undefined")
 }
 
-private populate(String contentFolderPath, String folderPath, Map config, logger) {
+private Document loadXml() {
+    final JahiaTemplatesPackage currentModule = ServicesRegistry.getInstance().getJahiaTemplateManagerService().getTemplatePackageById("getaway-dx-module")
+    if (currentModule == null) return null
+    final Bundle bundle = currentModule.getBundle()
+    if (bundle == null) return null
+    final URL xmlFile = bundle.getEntry("META-INF/groovyConsole/populate.xml")
+    if (xmlFile == null) return null
+    final BundleResource bundleResource = new BundleResource(xmlFile, bundle)
+
+    final SAXBuilder saxBuilder = new SAXBuilder();
+    saxBuilder.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+    return saxBuilder.build(bundleResource.getInputStream());
+}
+
+private populate(String contentFolderPath, String folderPath, logger) {
+    Document document = loadXml()
+    if (document == null) {
+        logger.error("Impossible to load the XML file")
+        return
+    }
     final JCRSessionWrapper editSession = JCRSessionFactory.getInstance().getCurrentSystemSession(Constants.EDIT_WORKSPACE, Locale.ENGLISH, null)
     final JCRNodeWrapper folderNode = editSession.getNode(contentFolderPath).addNode("getaway", "jnt:contentFolder")
     final JCRNodeWrapper destinationsNode = folderNode.addNode("destinations", "jnt:contentFolder")
     final JCRNodeWrapper landmarksNode = folderNode.addNode("landmarks", "jnt:contentFolder")
-    final JCRNodeWrapper outlinesNode = folderNode.addNode("outlines", "jnt:contentFolder")
     editSession.save()
-    populateDestinations(destinationsNode, outlinesNode, config.get("destinations") as List, logger)
+    populateDestinations(destinationsNode, document.rootElement.getChildren("destination", document.getRootElement().getNamespace()), logger)
     JCRPublicationService.getInstance().publishByMainId(folderNode.getIdentifier())
 }
 
-private populateDestinations(JCRNodeWrapper folderNode, JCRNodeWrapper outlinesNode, List destinations, logger) {
-    for (Map dest : destinations)
-        addDestination(folderNode, outlinesNode, dest, logger)
+private populateDestinations(JCRNodeWrapper folderNode, List<Element> destinations, logger) {
+    for (Element dest : destinations)
+        addDestination(folderNode, dest, logger)
     folderNode.getSession().save()
 }
 
-private addDestination(JCRNodeWrapper folderNode, JCRNodeWrapper outlinesNode, Map dest, logger) {
-    String name = dest.get("name")
+private addDestination(JCRNodeWrapper folderNode, Element dest, logger) {
+    final Namespace ns = dest.getNamespace()
+    String name = dest.getAttributeValue("name")
     def nodeName = JCRContentUtils.findAvailableNodeName(folderNode, JCRContentUtils.generateNodeName(name))
     JCRNodeWrapper node = folderNode.addNode(nodeName, "gant:destination")
     node.setProperty("destinationname", name)
-    if (dest.containsKey("title")) node.setProperty("title", dest.get("title") as String)
-    else node.setProperty("title", generateLipsum("words", 10, false))
-    node.setProperty("highlight", dest.get("highlight"))
-    node.setProperty("headline", generateLipsum(1))
-    node.setProperty("description", generateLipsum())
-    node.setProperty("facts", generateLipsum(2))
-    node.addMixin("jmix:geotagged")
-    node.setProperty("j:latitude", dest.get("latitude"))
-    node.setProperty("j:longitude", dest.get("longitude"))
-    node.setProperty("country", dest.get("country"))
-    node.setProperty("photos", [folderNode.getSession().getNode(dest.get("main-pic")).getIdentifier()] as String[])
-    if (dest.containsKey("hl_landmarks")) {
-        ArrayList landmarks = new ArrayList<Value>()
-        for (String placeID : dest.get("hl_landmarks") as List)
-            landmarks.add(JCRValueFactoryImpl.getInstance().createValue(placeID, PropertyType.STRING))
-        if (!landmarks.isEmpty()) node.setProperty("landmarks", landmarks.toArray() as Value[])
+    node.setProperty("country", dest.getAttributeValue("country"))
+    node.setProperty("highlight", Boolean.parseBoolean(dest.getAttributeValue("highlight")))
+    final Element mainPic = dest.getChild("main-pic", ns)
+    if (mainPic != null)
+        node.setProperty("photos", [folderNode.getSession().getNode(mainPic.getTextTrim()).getIdentifier()] as String[])
+    final Element headline = dest.getChild("headline", ns)
+    if (headline != null)
+        node.setProperty("headline", headline.getTextTrim())
+    else node.setProperty("headline", generateLipsum("words", 10, false))
+    final Element outline = dest.getChild("outline", ns)
+    if (outline != null)
+        node.setProperty("outline", outline.getTextTrim())
+    else node.setProperty("outline", generateLipsum())
+    final Element landmarks = dest.getChild("landmarks", ns)
+    if (landmarks != null) {
+        ArrayList values = new ArrayList<Value>()
+        for (Element lm : (landmarks.getChildren() as List<Element>))
+            values.add(JCRValueFactoryImpl.getInstance().createValue(lm.getTextTrim(), PropertyType.STRING))
+        if (!values.isEmpty()) node.setProperty("landmarks", values.toArray() as Value[])
     }
-    if (dest.containsKey("outlines")) {
-        ArrayList outlines = new ArrayList<Value>()
-        for (Map outline : dest.get("outlines") as List) {
-            JCRNodeWrapper outlineNode = createOutline(outlinesNode, outline, logger)
-            outlines.add(JCRValueFactoryImpl.getInstance().createValue(outlineNode.getIdentifier(), PropertyType.WEAKREFERENCE))
+    final Element infos = dest.getChild("infos", ns)
+    if (infos != null) {
+        final String area = infos.getAttributeValue("area")
+        if (StringUtils.isNotBlank(area)) node.setProperty("area", Double.parseDouble(area))
+        final String elevation = infos.getAttributeValue("elevation")
+        if (StringUtils.isNotBlank(elevation)) node.setProperty("elevation", Long.parseLong(elevation))
+        final Element geoPos = infos.getChild("geoPos", ns)
+        if (geoPos != null) {
+            node.addMixin("jmix:geotagged")
+            node.setProperty("j:latitude", geoPos.getAttributeValue("latitude"))
+            node.setProperty("j:longitude", geoPos.getAttributeValue("longitude"))
         }
-        if (!outlines.isEmpty()) node.setProperty("outlines", outlines.toArray() as Value[])
+        final Element population = infos.getChild("population", ns)
+        if (population != null) {
+            node.setProperty("populationCount", Integer.parseInt(population.getAttributeValue("count")))
+            final String year = population.getAttributeValue("year")
+            if (StringUtils.isNotBlank(year)) node.setProperty("populationDate", Integer.parseInt(year))
+        }
     }
-    if (dest.containsKey("area")) node.setProperty("area", dest.get("area") as double)
-    if (dest.containsKey("elevation")) node.setProperty("elevation", dest.get("elevation") as int)
-    if (dest.containsKey("population")) node.setProperty("populationCount", dest.get("population") as int)
-    if (dest.containsKey("populationDate")) node.setProperty("populationDate", dest.get("populationDate") as int)
 }
 
 private populateLandmarks(JCRNodeWrapper folderNode, List landmarks, logger) {
 
-}
-
-private JCRNodeWrapper createOutline(JCRNodeWrapper folderNode, Map outline, logger) {
-    String text = outline.get("text")
-    String nodeName = JCRContentUtils.findAvailableNodeName(folderNode, JCRContentUtils.generateNodeName(text))
-    JCRNodeWrapper node = folderNode.addNode(nodeName, "gant:outline")
-    node.setProperty("text", text)
-    node.setProperty("author", outline.get("author"))
-    GregorianCalendar calendar = new GregorianCalendar()
-    calendar.setTime(new Date(outline.get("date")))
-    node.setProperty("date", calendar)
-    return node
 }
 
 private reset(String folderPath, logger) {
