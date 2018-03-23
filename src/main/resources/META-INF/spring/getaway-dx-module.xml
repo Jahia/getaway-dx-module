@@ -4,11 +4,6 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-    <bean class="org.jahia.modules.getaway.servlet.GetAwayFilter">
-        <property name="urlPatterns" value="/getaway" />
-        <property name="corsOrigin" value="${getaway.config.cors.origin:http://localhost:3000}" />
-    </bean>
-
     <bean class="org.jahia.modules.getaway.content.nodetypes.initializers.LandmarksChoicelistInitializer">
         <property name="key" value="landmarks" />
         <property name="landmarksProvider" ref="googlePlacesService" />
