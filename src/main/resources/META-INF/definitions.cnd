@@ -12,6 +12,7 @@
     - populationDate (string, choicelist[populationDates]) indexed=no
 
 [gant:destination] > jnt:content, gamix:components, gamix:destinationInfos
+    - headerPhoto (weakreference, picker[type='image']) < jmix:image
     - destinationname (string) mandatory i18n primary
     - country (string, choicelist[country,flag]) mandatory
     - highlight (boolean) = 'false' mandatory autocreated
