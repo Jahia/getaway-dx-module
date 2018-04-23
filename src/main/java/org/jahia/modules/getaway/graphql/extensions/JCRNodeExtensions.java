@@ -45,4 +45,5 @@ public class JCRNodeExtensions {
     public String getNodeUrl() {
         return node.getNode().getUrl();
     }
+
 }
