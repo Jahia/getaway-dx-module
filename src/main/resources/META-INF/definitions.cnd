@@ -1,24 +1,30 @@
-<jnt = 'http://www.jahia.org/jahia/nt/1.0'>
-<jmix = 'http://www.jahia.org/jahia/mix/1.0'>
-<gant = 'http://www.jahia.org/getaway/nt/1.0'>
 <gamix = 'http://www.jahia.org/getaway/mix/1.0'>
+<gant = 'http://www.jahia.org/getaway/nt/1.0'>
+<jmix = 'http://www.jahia.org/jahia/mix/1.0'>
+<jnt = 'http://www.jahia.org/jahia/nt/1.0'>
 
 [gamix:components] > jmix:droppableContent mixin
 
 [gamix:destinationInfos] mixin
-    - area (double) < '[0.1,)'
-    - elevation (long)
-    - populationCount (long) < '[1,]'
-    - populationDate (string, choicelist[populationDates]) indexed=no
+ - area (double) < '[0.1,)'
+ - elevation (long)
+ - populationCount (long) < '[1,]'
+ - populationDate (string, choicelist[populationDates]) indexed=no
 
-[gant:destination] > jnt:content, gamix:components, gamix:destinationInfos
-    - headerPhoto (weakreference, picker[type='image']) < jmix:image
-    - destinationname (string) mandatory i18n primary
-    - country (string, choicelist[country,flag]) mandatory
-    - highlight (boolean) = 'false' mandatory autocreated
-    - photos (weakreference, picker[type='image']) multiple < jmix:image
-    - headline (string) i18n
-    - outline (string, richtext) i18n
-    - landmarks (string, choicelist[landmarks,dependentProperties='destinationname,country']) multiple
+[gant:destination] > jnt:content, jmix:editorialContent, gamix:components, gamix:destinationInfos
+ - headerPhoto (weakreference, picker[type='image']) < 'jmix:image'
+ - destinationname (string) primary mandatory internationalized
+ - country (string, choicelist[country,flag]) mandatory
+ - highlight (boolean) = 'false' mandatory autocreated
+ - photos (weakreference, picker[type='image']) multiple < 'jmix:image'
+ - headline (string) internationalized
+ - outline (string, richtext) internationalized
+ - landmarks (string, choicelist[landmarks,dependentProperties='destinationname,country']) multiple
 
-[gant:highlightedLandmarks] > jnt:content, gamix:components
+[gant:highlightedLandmarks] > jnt:content, jmix:editorialContent, gamix:components
+
+[gamix:appURL] mixin noquery
+ extends = jnt:contentFolder
+ itemtype = options
+ - liveURL (string)
+

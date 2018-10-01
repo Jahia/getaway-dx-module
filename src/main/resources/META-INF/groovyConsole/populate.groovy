@@ -53,6 +53,8 @@ private populate(String contentFolderPath, String folderPath, logger) {
     }
     final JCRSessionWrapper editSession = JCRSessionFactory.getInstance().getCurrentSystemSession(Constants.EDIT_WORKSPACE, Locale.ENGLISH, null)
     final JCRNodeWrapper folderNode = editSession.getNode(contentFolderPath).addNode("getaway", "jnt:contentFolder")
+	folderNode.addMixin("gamix:appURL");
+    folderNode.setProperty("liveURL","http://localhost:3000")
     final JCRNodeWrapper destinationsNode = folderNode.addNode("destinations", "jnt:contentFolder")
     final JCRNodeWrapper landmarksNode = folderNode.addNode("landmarks", "jnt:contentFolder")
     editSession.save()
