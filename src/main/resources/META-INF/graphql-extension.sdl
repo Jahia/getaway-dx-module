@@ -1,0 +1,31 @@
+type Destination @mapping(node: "gant:destination") {
+    name(language: String): String @mapping(property: "destinationname")
+    systemName: String @mapping(property: "j:nodename")
+    country: String @mapping(property: "country")
+    highlight: Boolean @mapping(property: "highlight")
+    photos: [ImageAsset] @mapping(property: "photos")
+    headline(language: String): String @mapping(property: "headline")
+    outline(language: String): String @mapping(property: "outline")
+    landmarks: [String] @mapping(property: "landmarks")
+    headerPhoto: ImageAsset @mapping(property: "headerPhoto")
+    destinationInfo: DestinationInfo
+    geoTag: GeoTag
+    metadata: Metadata
+}
+
+type DestinationInfo @mapping(node: "gamix:destinationInfos") {
+    elevation: Int @mapping(property: "elevation")
+    area: Float @mapping(property: "area")
+    populationCount: Int @mapping(property: "populationCount")
+    populationDate: String @mapping(property: "populationDate")
+}
+
+type GeoTag @mapping(node: "jmix:geotagged") {
+    latitude: Float @mapping(property: "j:latitude")
+    longitude: Float @mapping(property: "j:longitude")
+}
+
+extend type Query {
+    destinationBySystemName: [Destination]
+    destinationByHighlight: [Destination]
+}
