@@ -28,4 +28,5 @@ type GeoTag @mapping(node: "jmix:geotagged") {
 extend type Query {
     destinationBySystemName: [Destination]
     destinationByHighlight: [Destination]
+	allDestination: [Destination]
 }
