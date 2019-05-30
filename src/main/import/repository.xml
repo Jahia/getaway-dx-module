@@ -8,7 +8,30 @@
                          jcr:primaryType="jnt:module">
                 
                 <portlets jcr:primaryType="jnt:portletFolder"/>
-                <files jcr:primaryType="jnt:folder"/>
+                <files jcr:primaryType="jnt:folder">
+                    <images jcr:primaryType="jnt:folder">
+                        <toronto-city-hall-sign.jpg j:height="2975"
+                                           j:width="4460"
+                                           j:xresolution="72 dots"
+                                           j:yresolution="72 dots"
+                                           jcr:mixinTypes="jmix:exif jmix:image"
+                                           jcr:primaryType="jnt:file">
+                            <jcr:content jcr:mimeType="image/jpeg" jcr:primaryType="jnt:resource"/>
+                            <thumbnail jcr:mimeType="image/jpeg" jcr:primaryType="jnt:resource"/>
+                            <thumbnail2 jcr:mimeType="image/jpeg" jcr:primaryType="jnt:resource"/>
+                        </toronto-city-hall-sign.jpg>
+                        <caleb-miller-738108-unsplash.jpg j:height="3263"
+                                                 j:width="4926"
+                                                 j:xresolution="72 dots"
+                                                 j:yresolution="72 dots"
+                                                 jcr:mixinTypes="jmix:exif jmix:image"
+                                                 jcr:primaryType="jnt:file">
+                            <jcr:content jcr:mimeType="image/jpeg" jcr:primaryType="jnt:resource"/>
+                            <thumbnail jcr:mimeType="image/jpeg" jcr:primaryType="jnt:resource"/>
+                            <thumbnail2 jcr:mimeType="image/jpeg" jcr:primaryType="jnt:resource"/>
+                        </caleb-miller-738108-unsplash.jpg>
+                    </images>
+                </files>
                 <contents jcr:primaryType="jnt:contentFolder"/>
                 <templates j:rootTemplatePath="/base" jcr:primaryType="jnt:templatesFolder">
                     <files jcr:primaryType="jnt:folder"/>

@@ -56,7 +56,6 @@ private populate(String contentFolderPath, String folderPath, logger) {
 	folderNode.addMixin("gamix:appURL");
     folderNode.setProperty("liveURL","http://localhost:3000")
     final JCRNodeWrapper destinationsNode = folderNode.addNode("destinations", "jnt:contentFolder")
-    final JCRNodeWrapper landmarksNode = folderNode.addNode("landmarks", "jnt:contentFolder")
     editSession.save()
     populateDestinations(destinationsNode, document.rootElement.getChildren("destination", document.getRootElement().getNamespace()), logger)
     JCRPublicationService.getInstance().publishByMainId(folderNode.getIdentifier())
@@ -77,8 +76,19 @@ private addDestination(JCRNodeWrapper folderNode, Element dest, logger) {
     node.setProperty("country", dest.getAttributeValue("country"))
     node.setProperty("highlight", Boolean.parseBoolean(dest.getAttributeValue("highlight")))
     final Element mainPic = dest.getChild("main-pic", ns)
-    if (mainPic != null)
-        node.setProperty("photos", [folderNode.getSession().getNode(mainPic.getTextTrim()).getIdentifier()] as String[])
+    if (mainPic != null) {
+        def mainPicPath = mainPic.getTextTrim()
+        if(mainPicPath.startsWith('/sites')) {
+            node.setProperty("photos", [folderNode.getSession().getNode(mainPicPath).getIdentifier()] as String[])
+        } else {
+            def imagePath = mainPicPath.substring(mainPicPath.indexOf("/files/images/"));
+            def destImagPath = folderNode.getResolveSite().getPath() + imagePath
+            if(!folderNode.getSession().nodeExists(destImagPath)) {
+                folderNode.getSession().getWorkspace().copy(mainPicPath, destImagPath)
+            }
+            node.setProperty("photos", [folderNode.getSession().getNode(destImagPath).getIdentifier()] as String[])
+        }
+    }
     final Element headline = dest.getChild("headline", ns)
     if (headline != null)
         node.setProperty("headline", headline.getTextTrim())

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <getaway:destinations xmlns:getaway="http://www.jahia.org/xml/ns/getaway">
-    <getaway:destination name="Geneva" country="CH" highlight="true">
+    <getaway:destination name="Geneva" country="CH" highlight="false">
         <getaway:main-pic>/sites/digitall/files/images/backgrounds/landscape-mountains-nature-clouds.jpg
         </getaway:main-pic>
         <getaway:landmarks>
@@ -70,12 +70,12 @@
             &lt;p&gt;With an illustrious artistic pedigree &amp;ndash; Renoir, Rodin, Picasso, Monet, Manet, Dal&amp;iacute; and Van Gogh are but a few of the masters who lived and worked here over the years &amp;ndash; Paris is one of the great art repositories of the world, harbouring treasures from antiquity onward. In addition to big hitters like the incomparable Louvre, the Mus&amp;eacute;e d&amp;rsquo;Orsay&amp;rsquo;s exceptional impressionist collection, and the Centre Pompidou&amp;rsquo;s cache of modern and contemporary art, there are scores of smaller museums housing collections in every imaginable genre, and a diverse range of venues mounting major exhibitions through to off-beat installations.&lt;/p&gt;
         </getaway:outline>
     </getaway:destination>
-    <getaway:destination name="Rome" country="IT">
+    <getaway:destination name="Rome" country="IT" highlight="false">
         <getaway:infos area="1286.31" elevation="0">
             <getaway:geoPos latitude="41.8286" longitude="12.9254" />
             <getaway:population count="2877215" year="2016" />
         </getaway:infos>
-        <getaway:main-pic>/sites/digitall/files/images/slides/city-sunny-couple-love.jpg</getaway:main-pic>
+        <getaway:main-pic>/modules/getaway-dx-module/1.0-SNAPSHOT/files/images/caleb-miller-738108-unsplash.jpg</getaway:main-pic>
         <getaway:landmarks>
             <getaway:landmarkKey>ChIJIRbrOGZgLxMROSyE2uUHIHA</getaway:landmarkKey>
             <getaway:landmarkKey>ChIJ782pg7NhLxMR5n3swAdAkfo</getaway:landmarkKey>
@@ -84,11 +84,18 @@
             <getaway:landmarkKey>ChIJ1UCDJ1NgLxMRtrsCzOHxdvY</getaway:landmarkKey>
         </getaway:landmarks>
     </getaway:destination>
-    <getaway:destination name="Montcuq" country="FR" highlight="true">
-        <getaway:main-pic>/sites/digitall/files/images/slides/green-landscape.jpg</getaway:main-pic>
-        <getaway:infos elevation="135" area="32.22">
-            <getaway:population count="1241" year="2013" />
-            <getaway:geoPos latitude="44.2826" longitude="1.6507" />
+    <getaway:destination name="Toronto" country="CA" highlight="true">
+        <getaway:main-pic>/modules/getaway-dx-module/1.0-SNAPSHOT/files/images/toronto-city-hall-sign.jpg</getaway:main-pic>
+        <getaway:infos elevation="76" area="630">
+            <getaway:population count="2956024" year="2018" />
+            <getaway:geoPos latitude="43.6532" longitude="-79.4163" />
         </getaway:infos>
+        <getaway:landmarks>
+            <getaway:landmarkKey>ChIJmzrzi9Y0K4gRgXUc3sTY7RU</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJs6Elz500K4gRT1jWAsHIfGE</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJsRjTsS3L1IkRC177bW2To_4</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJWyfdtDHL1IkR_bal8ay1Cso</getaway:landmarkKey>
+            <getaway:landmarkKey>ChIJ_wU50co0K4gRingYcKzmofs</getaway:landmarkKey>
+        </getaway:landmarks>
     </getaway:destination>
 </getaway:destinations>
