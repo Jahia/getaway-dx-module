@@ -12,14 +12,14 @@
             <getaway:landmarkKey>ChIJo8di1TFljEcRFU9ttUDPPL0</getaway:landmarkKey>
         </getaway:landmarks>
         <getaway:infos area="15.92" elevation="374">
-            <getaway:geoPos latitude="46.1456" longitude="6.5891" />
+            <getaway:geoPos latitude="46.2044" longitude="6.1432" />
             <getaway:population count="201813" year="2017" />
         </getaway:infos>
     </getaway:destination>
     <getaway:destination name="New York City" country="US" highlight="true">
         <getaway:infos area="1214.4">
             <getaway:population count="8537673" year="2016" />
-            <getaway:geoPos latitude="40.6536" longitude="-73.5672" />
+            <getaway:geoPos latitude="40.7128" longitude="-74.0060" />
         </getaway:infos>
         <getaway:main-pic>/sites/digitall/files/images/slides/office-buildings.jpg</getaway:main-pic>
         <getaway:landmarks>
@@ -33,7 +33,7 @@
     </getaway:destination>
     <getaway:destination name="Reykjavik" country="IS" highlight="false">
         <getaway:infos area="274" elevation="0">
-            <getaway:geoPos latitude="64.1034" longitude="-21.4893" />
+            <getaway:geoPos latitude="64.1466" longitude="-21.9426" />
             <getaway:population count="121230" year="2014" />
         </getaway:infos>
         <getaway:main-pic>/sites/digitall/files/images/misc/IMG_4773.JPG</getaway:main-pic>
@@ -47,7 +47,7 @@
     <getaway:destination name="Paris" country="FR" highlight="true">
         <getaway:infos elevation="28" area="105.4">
             <getaway:population count="2206488" year="2015" />
-            <getaway:geoPos latitude="48.8032" longitude="2.7905" />
+            <getaway:geoPos latitude="48.8566" longitude="2.3522" />
         </getaway:infos>
         <getaway:main-pic>/sites/digitall/files/images/slides/city-sunny-couple-love.jpg</getaway:main-pic>
         <getaway:landmarks>
@@ -72,7 +72,7 @@
     </getaway:destination>
     <getaway:destination name="Rome" country="IT" highlight="false">
         <getaway:infos area="1286.31" elevation="0">
-            <getaway:geoPos latitude="41.8286" longitude="12.9254" />
+            <getaway:geoPos latitude="41.9028" longitude="12.4964" />
             <getaway:population count="2877215" year="2016" />
         </getaway:infos>
         <getaway:main-pic>/modules/getaway-dx-module/1.0-SNAPSHOT/files/images/caleb-miller-738108-unsplash.jpg</getaway:main-pic>
