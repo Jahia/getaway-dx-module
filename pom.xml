@@ -81,6 +81,12 @@
         </repository>
     </repositories>
 
+    <properties>
+        <import-package>graphql.annotations.annotationTypes;version="[6.1,9)"</import-package>
+        <jahia.plugin.version>5.17-SNAPSHOT</jahia.plugin.version>
+        <jahia-module-signature>MC0CFDk26an4sQAC6Ens5xBOTMnyGYi2AhUAkx22RSjXellLvmhbS7+GRm1Z0fQ=</jahia-module-signature>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.jahia.modules</groupId>
